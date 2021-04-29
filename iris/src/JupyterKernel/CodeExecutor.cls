@@ -17,7 +17,10 @@ ClassMethod CodeResult(vstrCommand As %String) As %String [ ProcedureBlock = 0 ]
             //Enable redirection
             do ##class(%Device).ReDirectIO(1)
 
-            XECUTE (vstrCommand)
+            set sc = ##class(%SYS.Python).Run(vstrCommand)
+            if sc = -1 {
+                throw ##class(%Exception.General).%New("","","","")
+            }
 
         } catch ex {
             set str = ex.DisplayString()

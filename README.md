@@ -1,57 +1,16 @@
-# objectsriptkernel
-This is an ObjectScript wrapper kernel for Project Jupyter.
+# Jupyter Iris Embedded
 
-## Inspiration
-To make a useful tool for other ObjectScript beginners to learn and easily share info.
+First of all big up to Nikita Mullin for the objectsrcipt kernel for jupyter.
 
-## What it does
-It allows us to execute ObjectScript inside a Jupyter Notebook.
+https://community.intersystems.com/post/how-i-added-objectscript-jupyter-notebooks
 
-Great for quick prototyping, teaching, creating business presentations showing IRIS features.
+# How to make this works ?
 
-## Challenges I ran into
-Almost every step was a new challenge as I've never used either Docker or ObjectScript.
+import source to iris embedded : 
 
-## Accomplishments that I proud of
-Finding (well, literally) how to capture ObjectScript console output.
+./iris/src
 
-I believe that I get the general gist of it.
+then docker compose up on root to this git.
 
-## What I learned
-How to create Docker files, simple Jupyter wrapper kernels. That ObjectScript can execute its code.
-
-## Built with
-Using VSCode and [ObjectScript plugin](https://marketplace.visualstudio.com/items?itemName=daimor.vscode-objectscript) (which is great, by the way), IRIS Community Edition in Docker,
-Jupyter in Docker, IRIS Native API for Python
-
-
-## Installation with Docker
-
-## Prerequisites
-Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Docker desktop](https://www.docker.com/products/docker-desktop) installed.
-
-
-Clone/git pull the repo into any local directory e.g. like it is shown below:
-
-```
-$ git clone https://github.com/Vekkby/objectsriptkernel.git
-```
-
-Open the terminal in this directory and run:
-
-```
-$ docker-compose up -d --build
-```
-
-## How to Work With it
-You may access the notebook server from the browser using 
-```
-localhost:8888
-``` 
-
-There's a sample notebook named 'hello.ipynb' in the 'work' directory. 
-![alt text](https://i.imgur.com/ualyzhy.gif "Example Notebook")
-
-Just open it and run examples in cells:
-![alt text](https://i.imgur.com/42zQpo7.gif "Example Notebook Execution")
+Enjoy.
 

@@ -6,7 +6,7 @@ import json
 
 def get_iris_object():
     # Create connection to InterSystems IRIS
-    connection = irisnative.createConnection('iris', 51773, 'IRISAPP', '_SYSTEM', 'SYS')
+    connection = irisnative.createConnection('host.docker.internal', 1972, 'USER', 'SuperUser', 'SYS')
 
     # Create an iris object
     return irisnative.createIris(connection)
@@ -71,8 +71,8 @@ class ObjectScriptKernel(Kernel):
         exception_msg = excecution_exception[error_code_end:]
 
         msg_html = (f'<p class="ansi-cyan-fg">Line {line_num}:</p>'
-                    f'<p class="ansi-red-fg">{cgi.escape(codeline)}</p>'
-                    f'<p><span class="ansi-red-fg">{cgi.escape(error_code)}</span><span>{cgi.escape(exception_msg)}</span></p>')
+                    f'<p class="ansi-red-fg">{codeline}</p>'
+                    f'<p><span class="ansi-red-fg">{error_code}</span><span>{exception_msg}</span></p>')
 
         msg = {
                 'source': 'kernel',
