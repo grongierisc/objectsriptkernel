@@ -10,7 +10,9 @@ import source to iris embedded :
 
 ./iris/src
 
-then docker compose up on root to this git.
+docker compose up.
+
+Go to http://localhost:8888/tree/
 
 Enjoy.
 
