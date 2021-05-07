@@ -2,8 +2,8 @@ FROM jupyter/minimal-notebook
 
 
 
-COPY irisnative-1.0.0-cp34-abi3-linux_x86_64.whl /tmp/
-RUN pip install /tmp/irisnative-1.0.0-cp34-abi3-linux_x86_64.whl
+COPY irisnative-1.2.0-cp34-abi3-linux_x86_64.whl /tmp/
+RUN pip install /tmp/irisnative-1.2.0-cp34-abi3-linux_x86_64.whl
 
 COPY kernel.py /objectscriptkernel/
 COPY kernel.json /objectscriptkernel/
@@ -14,4 +14,4 @@ USER root
 
 COPY start-notebook.sh /usr/local/bin/
 RUN chmod 777 /usr/local/bin/start-notebook.sh
-RUN rm -rf /tmp/irisnative-1.0.0-cp34-abi3-linux_x86_64.whl
+RUN rm -rf /tmp/irisnative-1.2.0-cp34-abi3-linux_x86_64.whl
