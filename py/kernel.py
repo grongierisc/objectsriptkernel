@@ -23,7 +23,7 @@ class ObjectScriptKernel(Kernel):
     language_version = '1.0'
     banner = 'An ObjectScript kernel'
     language_info = {
-        'name': 'Arbitrary',
+        'name': 'pyhton',
         'mimetype': 'text/x-python',
         'file_extension': '.cls',
     }
