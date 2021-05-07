@@ -5,8 +5,12 @@ import json
 
 
 def get_iris_object():
+    # Load vars
+    fObj = open('/home/jovyan/work/connection.json',)
+    vars = json.load(fObj)
+
     # Create connection to InterSystems IRIS
-    connection = irisnative.createConnection('host.docker.internal', 1972, 'USER', 'SuperUser', 'SYS')
+    connection = irisnative.createConnection(vars["host"], vars["port"], vars["namespace"], vars["login"], vars["password"])
 
     # Create an iris object
     return irisnative.createIris(connection)
@@ -20,7 +24,7 @@ class ObjectScriptKernel(Kernel):
     banner = 'An ObjectScript kernel'
     language_info = {
         'name': 'Arbitrary',
-        'mimetype': 'text/plain',
+        'mimetype': 'text/x-python',
         'file_extension': '.cls',
     }
 
