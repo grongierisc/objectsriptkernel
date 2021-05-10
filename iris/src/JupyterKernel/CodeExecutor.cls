@@ -3,7 +3,7 @@ Include %sySystem
 Class JupyterKernel.CodeExecutor
 {
 
-ClassMethod CodeResult(vstrCommand As %String) As %String [ ProcedureBlock = 0 ]
+ClassMethod CodeResult(vstrCommand As %String, type As %String = "python") As %String [ ProcedureBlock = 0 ]
 {
         set tOldIORedirected = ##class(%Device).ReDirectIO()
         set tOldMnemonic = ##class(%Device).GetMnemonicRoutine()
@@ -18,13 +18,32 @@ ClassMethod CodeResult(vstrCommand As %String) As %String [ ProcedureBlock = 0 ]
             do ##class(%Device).ReDirectIO(1)
             Set stdiomode   = ##class(%SYS.Python).SetStdIOMode(3)
 
-            set sc = ##class(%SYS.Python).Run(vstrCommand)
-            if sc = -1 {
-                throw 
+            if type = "cos" {
+                Try {
+                    XECUTE (vstrCommand)
+                }
+                Catch ex {
+                    set str = ex.DisplayString()
+                    set status = 0
+                }
+                
+            }
+            elseif type = "sql" {
+                set tStatement =  ##class(%SQL.Statement).%New()
+                SET qStatus = tStatement.%Prepare(vstrCommand)
+                    IF qStatus'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(qStatus) SET status = 0 QUIT}
+                SET rset = tStatement.%Execute()
+                DO rset.%Display()
+            }
+            else {
+                set sc = ##class(%SYS.Python).Run(vstrCommand)
+                if sc = -1 {
+                    set status = 0 
+                }
             }
 
-        } catch {
-            //do interpreter.showtraceback()
+        } catch ex {
+            set str = ex.DisplayString()
             set status = 0
         }
 

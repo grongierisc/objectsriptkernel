@@ -32,16 +32,24 @@ class ObjectScriptKernel(Kernel):
         Kernel.__init__(self, **kwargs)
         self.iris = get_iris_object()
 
-    def execute_code(self, code):
+    def execute_code(self, code, type):
         class_name = "JupyterKernel.CodeExecutor"
-        return self.iris.classMethodValue(class_name, "CodeResult", code)
+        return self.iris.classMethodValue(class_name, "CodeResult", code, type)
 
     def do_execute(self, code, silent, store_history=True, user_expressions=None,
                    allow_stdin=False):
         if not silent:
             output = []
-            
-            execution_result = json.loads(self.execute_code(code))
+            arg = 'python'
+
+            if code.splitlines()[0].startswith('%'):
+                arg = code.splitlines()[0].split('%')[1]
+                if arg != 'cos':
+                    code = "\n".join(code.splitlines()[1:])
+                else:
+                    code = " ".join(code.splitlines()[1:])
+
+            execution_result = json.loads(self.execute_code(code,arg))
 
             if execution_result['status']:
                 if execution_result['out']:
