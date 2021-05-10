@@ -41,21 +41,21 @@ class ObjectScriptKernel(Kernel):
         if not silent:
             codelines = code.splitlines()
             output = []
-            for line_num, codeline in enumerate(codelines, start=1):
-                execution_result = json.loads(self.execute_code(codeline))
+            
+            execution_result = json.loads(self.execute_code(code))
 
-                if execution_result['status']:
-                    if execution_result['out']:
-                        output.append(execution_result['out'])
+            if execution_result['status']:
+                if execution_result['out']:
+                    output.append(execution_result['out'])
 
-                else:
-                    self.send_error_msg(line_num, codeline, execution_result['out'])
-                    return {
-                            'status': 'error',
-                            'execution_count': self.execution_count,
-                            'payload': [],
-                            'user_expressions': {},
-                        }
+            else:
+                self.send_error_msg(line_num, codeline, execution_result['out'])
+                return {
+                        'status': 'error',
+                        'execution_count': self.execution_count,
+                        'payload': [],
+                        'user_expressions': {},
+                    }
 
         self.send_execution_result('\n'.join(output))
         return {
