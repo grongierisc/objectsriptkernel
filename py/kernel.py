@@ -39,7 +39,6 @@ class ObjectScriptKernel(Kernel):
     def do_execute(self, code, silent, store_history=True, user_expressions=None,
                    allow_stdin=False):
         if not silent:
-            codelines = code.splitlines()
             output = []
             
             execution_result = json.loads(self.execute_code(code))
@@ -47,9 +46,8 @@ class ObjectScriptKernel(Kernel):
             if execution_result['status']:
                 if execution_result['out']:
                     output.append(execution_result['out'])
-
             else:
-                self.send_error_msg(line_num, codeline, execution_result['out'])
+                self.send_error_msg(execution_result['out'])
                 return {
                         'status': 'error',
                         'execution_count': self.execution_count,
@@ -69,14 +67,9 @@ class ObjectScriptKernel(Kernel):
         msg = {'name': 'stdout', 'text': msg_text}
         self.send_response(self.iopub_socket, 'stream', msg)
 
-    def send_error_msg(self, line_num, codeline, excecution_exception):
-        error_code_end = excecution_exception.strip().find('>') + 1
-        error_code = excecution_exception[:error_code_end]
-        exception_msg = excecution_exception[error_code_end:]
+    def send_error_msg(self, excecution_exception):
 
-        msg_html = (f'<p class="ansi-cyan-fg">Line {line_num}:</p>'
-                    f'<p class="ansi-red-fg">{codeline}</p>'
-                    f'<p><span class="ansi-red-fg">{error_code}</span><span>{exception_msg}</span></p>')
+        msg_html = (f'<p><span class="ansi-red-fg">{excecution_exception}</span></p>')
 
         msg = {
                 'source': 'kernel',

@@ -23,7 +23,7 @@ ClassMethod CodeResult(vstrCommand As %String) As %String [ ProcedureBlock = 0 ]
             }
 
         } catch ex {
-            set str = ex.DisplayString()
+            set str = "error"
             set status = 0
         }
 
@@ -59,6 +59,14 @@ wtab(s)
 output(s)
     set str = str _ s
     quit
+}
+
+/// Description
+ClassMethod Run() As %Status
+{
+    Set sc = $$$OK
+    // do something
+    Return sc
 }
 
 }
