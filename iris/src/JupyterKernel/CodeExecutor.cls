@@ -16,14 +16,15 @@ ClassMethod CodeResult(vstrCommand As %String) As %String [ ProcedureBlock = 0 ]
 
             //Enable redirection
             do ##class(%Device).ReDirectIO(1)
+            Set stdiomode   = ##class(%SYS.Python).SetStdIOMode(3)
 
             set sc = ##class(%SYS.Python).Run(vstrCommand)
             if sc = -1 {
-                throw ##class(%Exception.General).%New("","","","")
+                throw 
             }
 
-        } catch ex {
-            set str = "error"
+        } catch {
+            //do interpreter.showtraceback()
             set status = 0
         }
 
@@ -34,7 +35,7 @@ ClassMethod CodeResult(vstrCommand As %String) As %String [ ProcedureBlock = 0 ]
             use tOldIO
         }
         do ##class(%Device).ReDirectIO(tOldIORedirected)
-
+        Do:stdiomode'="" ##class(%SYS.Python).SetStdIOMode(stdiomode)
         quit {"status":(status), "out":(str)}.%ToJSON()
 
 rchr(c)
