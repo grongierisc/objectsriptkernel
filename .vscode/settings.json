@@ -9,25 +9,12 @@
       "active": true,
       "username":"SuperUser",
       "password": "SYS",
-      "host": "localhost",
-      "port": 52773
+      "docker-compose": {
+        "service": "iris",
+        "file": "docker-compose.yml"
+      },
 
     },
-    "sqltools.connections": [
-    
-      {
-        "askForPassword": false,
-        "connectionMethod": "Server and Port",
-        "driver": "InterSystems IRIS",
-        "name": "FHIR",
-        "namespace": "FHIRSERVER",
-        "password": "SYS",
-        "port": 32783,
-        "previewLimit": 50,
-        "server": "localhost",
-        "showSystem": false,
-        "username": "SuperUser"
-      }
-    ]
+    "jupyter.jupyterServerType": "remote"
 
 }
