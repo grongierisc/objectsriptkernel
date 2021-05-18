@@ -16,7 +16,19 @@ Enjoy.
 
 # Features
 
-Support of ObjectScript Command :
+## Support Embedded Python
+
+Write any python code in a cell
+
+```python
+import iris
+person = iris.cls('Demo.Person')._New()
+person.Name = 'toto'
+print(person)
+person._Save()
+```
+
+## Support of ObjectScript Command 
 
 Prefix any cell with %cos
 
@@ -32,7 +44,7 @@ else {
 }
 ```
 
-Suppor of SQL Command :
+## Suppor of SQL Command :
 
 Prefix any cell with %cos
 
